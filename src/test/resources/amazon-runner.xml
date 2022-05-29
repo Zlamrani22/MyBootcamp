@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="amazon smoke amazon">
+    <parameter name="url" value="https://wwww.amazon.com"></parameter>
+    <parameter name="browser" value="chrome"></parameter>
+    <parameter name="os" value="windows"></parameter>
+    <test name="floating menu amazon">
+        <classes>
+            <class name="amazon.FloatingMenuTest"></class>
+        </classes>
+<!--    </amazon>-->
+<!--    <amazon name="search amazon">-->
+<!--        <classes>-->
+<!--            <class name="amazon.SearchTest"></class>-->
+<!--        </classes>-->
+<!--    </amazon>-->
+<!--    <amazon name="dropdown amazon">-->
+<!--        <classes>-->
+<!--            <class name="amazon.DropdownTest"></class>-->
+<!--        </classes>-->
+    </test>
+</suite>
+
