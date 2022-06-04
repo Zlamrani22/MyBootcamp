@@ -15,6 +15,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import java.util.concurrent.TimeUnit;
+
 public class CommonAPI {
 
     static String currentDir = System.getProperty("user.dir");
@@ -53,6 +55,7 @@ public class CommonAPI {
     @BeforeMethod
     public void setUp(@Optional("https://www.google.com") String url, @Optional("chrome") String browser, @Optional("windows") String os){
         getDriver(browser, os);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(url);
     }
@@ -66,59 +69,29 @@ public class CommonAPI {
         return driver.getTitle();
     }
 
-    public String getElementText(String locator){
-        try {
-            return driver.findElement(By.cssSelector(locator)).getText();
-        }catch (Exception e){
-            return driver.findElement(By.xpath(locator)).getText();
-        }
+    public String getElementText(WebElement element){
+        return element.getText();
     }
 
-    public void click(String locator){
-        try {
-            driver.findElement(By.cssSelector(locator)).click();
-        }catch (Exception e){
-            driver.findElement(By.xpath(locator)).click();
-        }
+    public void click(WebElement element){
+        element.click();
     }
 
-    public void type(String locator, String text){
-        try {
-            driver.findElement(By.cssSelector(locator)).sendKeys(text);
-        }catch (Exception e){
-            driver.findElement(By.xpath(locator)).sendKeys(text);
-        }
-
+    public void type(WebElement element, String text){
+        element.sendKeys(text);
     }
 
-    public void typeAndEnter(String locator, String text){
-        try {
-            driver.findElement(By.cssSelector(locator)).sendKeys(text, Keys.ENTER);
-        }catch (Exception e){
-            driver.findElement(By.xpath(locator)).sendKeys(text, Keys.ENTER);
-        }
+    public void typeAndEnter(WebElement element, String text){
+        element.sendKeys(text, Keys.ENTER);
     }
 
-    public void selectFromDropdown(String dropdownLocator, String option){
-        WebElement dropdown;
-        try {
-             dropdown = driver.findElement(By.cssSelector(dropdownLocator));
-
-        }catch (Exception e){
-            dropdown = driver.findElement(By.xpath(dropdownLocator));
-        }
+    public void selectFromDropdown(WebElement dropdown, String option){
         Select select = new Select(dropdown);
         select.selectByVisibleText(option);
     }
 
-    public void hoverOver(String locator){
+    public void hoverOver(WebDriver driver, WebElement element){
         Actions actions = new Actions(driver);
-        WebElement element;
-        try {
-            element = driver.findElement(By.cssSelector(locator));
-        }catch (Exception e){
-            element = driver.findElement(By.xpath(locator));
-        }
         actions.moveToElement(element).build().perform();
     }
 

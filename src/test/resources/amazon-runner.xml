@@ -9,16 +9,16 @@
         <classes>
             <class name="amazon.FloatingMenuTest"></class>
         </classes>
-<!--    </amazon>-->
-<!--    <amazon name="search amazon">-->
+    </test>
+<!--    <test name="search amazon">-->
 <!--        <classes>-->
 <!--            <class name="amazon.SearchTest"></class>-->
 <!--        </classes>-->
-<!--    </amazon>-->
-<!--    <amazon name="dropdown amazon">-->
+<!--    </test>-->
+<!--    <test name="dropdown amazon">-->
 <!--        <classes>-->
 <!--            <class name="amazon.DropdownTest"></class>-->
 <!--        </classes>-->
-    </test>
+<!--    </test>-->
 </suite>
 
