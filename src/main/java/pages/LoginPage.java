@@ -11,11 +11,18 @@ public class LoginPage extends CommonAPI {
     @FindBy(css = ".a-form-label")
     private WebElement headerText;
 
+    @FindBy(xpath = "//*[@class='a-icon a-icon-logo']")
+    private WebElement amazonLogo;
+
     public LoginPage(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
 
     public String getHeaderText(){
         return getElementText(headerText);
+    }
+
+    public boolean checkLogoIsPresent(){
+        return isPresent(amazonLogo);
     }
 }
