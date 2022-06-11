@@ -22,3 +22,7 @@ xpath:
 		- sibling transverse (back) example: xpath/preceding-sibling::tag
 
 //tagName[text()='value']
+
+tagName[attribute='value'] tr:nth-child(index)
+tagName[attribute='value'] td:nth-child(index)
+tagName[attribute='value'] tr:nth-child(index) td:nth-child(index)
