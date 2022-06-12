@@ -1,12 +1,16 @@
 package amazon;
 
 import base.CommonAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
 public class FloatingMenuTest extends CommonAPI {
+
+    private final Logger LOG = LoggerFactory.getLogger(FloatingMenuTest.class);
 
     @Test(enabled = false)
     public void floatingMenu(){

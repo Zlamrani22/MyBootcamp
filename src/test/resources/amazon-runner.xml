@@ -9,17 +9,17 @@
     <parameter name="browserName" value="chrome"></parameter>
     <parameter name="browserVersion" value="99"></parameter>
     <parameter name="url" value="https://wwww.amazon.com"></parameter>
-    <test name="floating menu amazon">
-        <classes>
-            <class name="amazon.FloatingMenuTest"></class>
-        </classes>
-    </test>
-
-<!--    <test name="search amazon">-->
+<!--    <test name="floating menu amazon">-->
 <!--        <classes>-->
-<!--            <class name="amazon.SearchTest"></class>-->
+<!--            <class name="amazon.FloatingMenuTest"></class>-->
 <!--        </classes>-->
 <!--    </test>-->
+
+    <test name="search amazon">
+        <classes>
+            <class name="amazon.SearchTest"></class>
+        </classes>
+    </test>
 
 <!--    <test name="dropdown amazon">-->
 <!--        <classes>-->

@@ -5,11 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage extends CommonAPI {
+
+    private final Logger LOG = LoggerFactory.getLogger(HomePage.class);
 
     @FindBy(css = "#twotabsearchtextbox")
     private WebElement searchField;
@@ -36,18 +40,23 @@ public class HomePage extends CommonAPI {
     //reusable steps
     public void searchElement(String item){
         type(searchField, item);
+        LOG.info("type in the search field success");
     }
     public void clickSearchBtn(){
         click(searchBtn);
+        LOG.info("click on search button success");
     }
     public void clearSearchField(){
         clear(searchField);
+        LOG.info("clear search field success");
     }
     public void searchElementAndEnter(String item){
         typeAndEnter(searchField, item);
+        LOG.info("type in search field and enter success");
     }
     public void selectOptionFromMenuDropdown(String option){
         selectFromDropdown(menuDropdown, option);
+        LOG.info("{} selected from menu dropdown", option);
     }
     public List<String> getHomePageDropdownOptions(){
         List<String> options = new ArrayList<>();

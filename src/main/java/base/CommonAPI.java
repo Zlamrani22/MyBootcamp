@@ -9,12 +9,15 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.annotations.Optional;
 import reporting.ExtentManager;
 import reporting.ExtentTestManager;
+import utility.Utility;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +28,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class CommonAPI {
 
-    static String currentDir = System.getProperty("user.dir");
+    private final Logger LOG = LoggerFactory.getLogger(CommonAPI.class);
+
+    Properties prop = Utility.loadProperties();
+    String duration = prop.getProperty("implicit.wait", "10");
+    String maximizeBrowser = prop.getProperty("maximize.browser", "true");
+    String takeScreenshot = prop.getProperty("take.screenshot", "false");
+    String browserstackUsername = prop.getProperty("browserstack.username");
+    String browserstackPassword = prop.getProperty("browserstack.password");
+    String saucelabsUsername = prop.getProperty("saucelabs.username");;
+    String saucelabsPassword = prop.getProperty("saucelabs.password");;
 
     private WebDriver driver;
 
@@ -74,11 +86,11 @@ public class CommonAPI {
         }
         ExtentTestManager.endTest();
         extent.flush();
-//        if (takeScreenshot.equalsIgnoreCase("true")){
-        if (result.getStatus() == ITestResult.FAILURE) {
-            takeScreenshot(result.getName());
+        if (takeScreenshot.equalsIgnoreCase("true")){
+            if (result.getStatus() == ITestResult.FAILURE) {
+                takeScreenshot(result.getName());
+            }
         }
-//        }
         driver.quit();
     }
     @AfterSuite
@@ -95,26 +107,26 @@ public class CommonAPI {
     public void getLocalDriver(String browser, String os){
         if (os.equalsIgnoreCase("windows")){
             if (browser.equalsIgnoreCase("chrome")){
-                System.setProperty("webdriver.chrome.driver", currentDir+"\\driver\\windows\\chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", Utility.currentDir+"\\driver\\windows\\chromedriver.exe");
                 driver = new ChromeDriver();
             }else if (browser.equalsIgnoreCase("firefox")){
-                System.setProperty("webdriver.gecko.driver", currentDir+"\\driver\\windows\\geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver", Utility.currentDir+"\\driver\\windows\\geckodriver.exe");
                 driver = new FirefoxDriver();
             }
         }else if (os.equalsIgnoreCase("mac")){
             if (browser.equalsIgnoreCase("chrome")){
-                System.setProperty("webdriver.chrome.driver", currentDir+"\\driver\\mac\\chromedriver");
+                System.setProperty("webdriver.chrome.driver", Utility.currentDir+"\\driver\\mac\\chromedriver");
                 driver = new ChromeDriver();
             }else if (browser.equalsIgnoreCase("firefox")){
-                System.setProperty("webdriver.gecko.driver", currentDir+"\\driver\\mac\\geckodriver");
+                System.setProperty("webdriver.gecko.driver", Utility.currentDir+"\\driver\\mac\\geckodriver");
                 driver = new FirefoxDriver();
             }
         }else if (os.equalsIgnoreCase("linux")){
             if (browser.equalsIgnoreCase("chrome")){
-                System.setProperty("webdriver.chrome.driver", currentDir+"\\driver\\linux\\chromedriver");
+                System.setProperty("webdriver.chrome.driver", Utility.currentDir+"\\driver\\linux\\chromedriver");
                 driver = new ChromeDriver();
             }else if (browser.equalsIgnoreCase("firefox")){
-                System.setProperty("webdriver.gecko.driver", currentDir+"\\driver\\linux\\geckodriver");
+                System.setProperty("webdriver.gecko.driver", Utility.currentDir+"\\driver\\linux\\geckodriver");
                 driver = new FirefoxDriver();
             }
         }
@@ -140,16 +152,18 @@ public class CommonAPI {
                       @Optional("https://www.google.com") String url) throws MalformedURLException {
         if (useCloudEnv){
             if (envName.equalsIgnoreCase("browserstack")){
-                getCloudDriver(envName, "nacerhadjsaid1", "pK4miZ8sp15afqsvGckE", os, osVersion, browserName, browserVersion);
+                getCloudDriver(envName, Utility.decode(browserstackUsername), Utility.decode(browserstackPassword), os, osVersion, browserName, browserVersion);
             }else if (envName.equalsIgnoreCase( "saucelabs")){
-                getCloudDriver(envName, "", "", os, osVersion, browserName, browserVersion);
+                getCloudDriver(envName, saucelabsUsername, saucelabsPassword, os, osVersion, browserName, browserVersion);
             }
         }else {
             getLocalDriver(browserName, os);
         }
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.parseInt(duration)));
+        if (maximizeBrowser.equalsIgnoreCase("true")){
+            driver.manage().window().maximize();
+        }
         driver.get(url);
     }
 
@@ -277,12 +291,10 @@ public class CommonAPI {
         File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(file, new File(System.getProperty("user.dir")+ "\\screenshots\\"+screenshotName+" "+df.format(date)+".jpeg"));
-
-            System.out.println("Screenshot captured");
+            LOG.info("Screenshot captured");
         } catch (Exception e) {
-            String path = currentDir+ "/screenshots/"+screenshotName+" "+df.format(date)+".jpeg";
-            System.out.println(path);
-            System.out.println("Exception while taking screenshot "+e.getMessage());;
+            String path = Utility.currentDir+ "/screenshots/"+screenshotName+" "+df.format(date)+".jpeg";
+            LOG.info("Exception while taking screenshot "+e.getMessage());
         }
     }
 

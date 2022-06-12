@@ -1,10 +1,14 @@
 package amazon;
 
 import base.CommonAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import pages.HomePage;
 
 public class DropdownTest extends CommonAPI {
+
+    private final Logger LOG = LoggerFactory.getLogger(DropdownTest.class);
 
     @Test(enabled = false)
     public void selectBabyOption(){
@@ -19,7 +23,7 @@ public class DropdownTest extends CommonAPI {
     public void getDropdownList(){
         HomePage homePage = new HomePage(getDriver());
         for (String str:homePage.getHomePageDropdownOptions()) {
-            System.out.println(str);
+            LOG.info(str);
         }
     }
     @Test(enabled = false)
