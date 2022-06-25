@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="automationpractice smoke">
+    <parameter name="useCloudEnv" value="true"></parameter>
+    <parameter name="envName" value="browserstack"></parameter>
+    <parameter name="os" value="mac"></parameter>
+    <parameter name="osVersion" value="11"></parameter>
+<!--    <parameter name="browserName" value="chrome"></parameter>-->
+    <parameter name="browserName" value="firefox"></parameter>
+    <parameter name="browserVersion" value="99"></parameter>
+    <parameter name="url" value="http://automationpractice.com/index.php"></parameter>
+
+<!--    <test name="TestAutomationHomePage">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestAutomationHomePage"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestAuthentication">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestAuthentication"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestContactUs">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestContactUs"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestLogin">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestLogin"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestSitemap">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestSitemap"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestMyAccount">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestMyAccount"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestPrestaShopPage">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestPrestaShopPage"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="TestShoppingCart">
+        <classes>
+            <class name="automationpractice.TestShoppingCart"></class>
+        </classes>
+    </test>
+<!--    <test name="TestWomen">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestWomen"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestPrintedDress">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestPrintedDress"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestMyStore">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestMyStore"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestMyWishlist">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestMyWishlist"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestSpecials">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestSpecials"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="TestSuppliers">-->
+<!--        <classes>-->
+<!--            <class name="automationpractice.TestSuppliers"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+</suite>
